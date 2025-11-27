@@ -176,7 +176,12 @@ case CHAR_MINUS:
     if (currentChar == '=') {
       token = makeToken(SB_GE, ln, cn);
       readChar();
-    } else {
+    } 
+    else if (currentChar == '>') {  // THÊM DÒNG NÀY: Xử lý <>
+      token = makeToken(SB_NEQ, ln, cn);
+      readChar();
+    }
+    else {
       token = makeToken(SB_GT, ln, cn);
     }
     return token;
