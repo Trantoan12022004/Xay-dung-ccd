@@ -59,14 +59,16 @@ Token* readIdentKeyword(void) {
   Token *token = makeToken(TK_IDENT, lineNo, colNo);
   int count = 0;
   
-  // Đọc các ký tự chữ cái và chữ số
+  // Đọc các ký tự chữ cái, chữ số và gạch dưới
   while ((currentChar != EOF) && 
          ((charCodes[currentChar] == CHAR_LETTER) || 
-          (charCodes[currentChar] == CHAR_DIGIT))) {
+          (charCodes[currentChar] == CHAR_DIGIT) ||
+          (charCodes[currentChar] == CHAR_UNDERSCORE))) {  // THÊM UNDERSCORE
     
     if (count >= MAX_IDENT_LEN) {
-      error(ERR_IDENTTOOLONG, token->lineNo, token->colNo);
-      return token;
+      // Nếu vượt quá 10 ký tự, bỏ qua các ký tự thừa (KHÔNG báo lỗi)
+      readChar();
+      continue;  // Tiếp tục đọc nhưng không lưu
     }
     
     token->string[count++] = (char)currentChar;
@@ -136,7 +138,10 @@ Token* getToken(void) {
 
   switch (charCodes[currentChar]) {
   case CHAR_SPACE: skipBlank(); return getToken();
-  case CHAR_LETTER: return readIdentKeyword();
+  case CHAR_LETTER: 
+  case CHAR_UNDERSCORE:  // THÊM DÒNG NÀY: underscore cũng bắt đầu identifier
+  return readIdentKeyword();
+
   case CHAR_DIGIT: return readNumber();
   case CHAR_PLUS:
     ln = lineNo;

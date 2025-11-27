@@ -1,8 +1,7 @@
 program test;
-var x, y: integer;
+var _var1, my_var, a_b_c_d_e_f_g_h_i_j_k: integer;
 begin
-  x := 10;
-  x += 5;
-  y *= 2;
-  x = x + 1;
+  _var1 := 10;
+  my_var := 20;
+  a_b_c_d_e_f_g_h_i_j_k := 30;
 end.
