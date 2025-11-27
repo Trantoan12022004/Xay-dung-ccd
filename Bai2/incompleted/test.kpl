@@ -1,0 +1,15 @@
+program Test;
+return
+switch
+var a: array [10] of integer;
+program test;
+var a, b: integer;
+begin
+  a[5] := 10;
+  a(. 3 .) := 20;
+  if a != b then
+    writeln('Not equal with !=');
+  if a <> b then
+    writeln('Not equal with <>');
+
+end.

@@ -1,8 +1,0 @@
-program test; (*END OF HANOI*)
-var x: integer; // Khai báo biến x
-begin
-  x := 10; // Gán giá trị 10 cho x
-  // Dòng này là comment hoàn toàn
-  x := x + 5; // Phép cộng
-  // x := 999; // Dòng này bị comment
-end. // Kết thúc chương trình

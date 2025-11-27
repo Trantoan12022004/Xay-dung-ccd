@@ -191,17 +191,20 @@ Token* getToken(void) {
     }
     return token;
     
-  // case CHAR_LT:
-  //   ln = lineNo;
-  //   cn = colNo;
-  //   readChar();
-  //   if (currentChar == '=') {
-  //     token = makeToken(SB_LE, ln, cn);
-  //     readChar();
-  //   } else {
-  //     token = makeToken(SB_LT, ln, cn);
-  //   }
-  //   return token;
+  case CHAR_LT:
+    ln = lineNo;
+    cn = colNo;
+    readChar();
+    if (currentChar == '=') {
+      token = makeToken(SB_LE, ln, cn);
+      readChar();
+    } else if (currentChar == '>') {  // Xử lý <>
+      token = makeToken(SB_NEQ, ln, cn);
+      readChar();
+    } else {
+      token = makeToken(SB_LT, ln, cn);
+    }
+    return token;
     
   case CHAR_GT:
     ln = lineNo;
@@ -210,12 +213,7 @@ Token* getToken(void) {
     if (currentChar == '=') {
       token = makeToken(SB_GE, ln, cn);
       readChar();
-    } 
-    else if (currentChar == '>') {  // THÊM DÒNG NÀY: Xử lý <>
-      token = makeToken(SB_NEQ, ln, cn);
-      readChar();
-    }
-    else {
+    } else {
       token = makeToken(SB_GT, ln, cn);
     }
     return token;
