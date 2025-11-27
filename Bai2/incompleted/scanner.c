@@ -138,18 +138,32 @@ Token* getToken(void) {
   case CHAR_SPACE: skipBlank(); return getToken();
   case CHAR_LETTER: return readIdentKeyword();
   case CHAR_DIGIT: return readNumber();
-  case CHAR_PLUS: 
-    token = makeToken(SB_PLUS, lineNo, colNo);
-    readChar(); 
+  case CHAR_PLUS:
+    ln = lineNo;
+    cn = colNo;
+    readChar();
+    if (currentChar == '=') {  // Kiểm tra +=
+      token = makeToken(SB_PLUS_ASSIGN, ln, cn);
+      readChar();
+    } else {
+      token = makeToken(SB_PLUS, ln, cn);
+    }
     return token;
-case CHAR_MINUS:
+  case CHAR_MINUS:
     token = makeToken(SB_MINUS, lineNo, colNo);
     readChar();
     return token;
     
   case CHAR_TIMES:
-    token = makeToken(SB_TIMES, lineNo, colNo);
+    ln = lineNo;
+    cn = colNo;
     readChar();
+    if (currentChar == '=') {  // Kiểm tra *=
+      token = makeToken(SB_TIMES_ASSIGN, ln, cn);
+      readChar();
+    } else {
+      token = makeToken(SB_TIMES, ln, cn);
+    }
     return token;
     
   case CHAR_SLASH:
@@ -335,6 +349,8 @@ void printToken(Token *token) {
   case SB_RPAR: printf("SB_RPAR\n"); break;
   case SB_LSEL: printf("SB_LSEL\n"); break;
   case SB_RSEL: printf("SB_RSEL\n"); break;
+  case SB_PLUS_ASSIGN: printf("SB_PLUS_ASSIGN\n"); break;   // THÊM
+  case SB_TIMES_ASSIGN: printf("SB_TIMES_ASSIGN\n"); break; // THÊM
   }
 }
 

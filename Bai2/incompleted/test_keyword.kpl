@@ -1,8 +1,8 @@
 program test;
-var a, b: integer;
+var x, y: integer;
 begin
-  if a != b then
-    writeln('Not equal with !=');
-  if a <> b then
-    writeln('Not equal with <>');
+  x := 10;
+  x += 5;
+  y *= 2;
+  x = x + 1;
 end.
