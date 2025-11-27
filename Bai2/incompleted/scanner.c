@@ -54,6 +54,14 @@ void skipComment() {
   }
 }
 
+void skipLineComment() {
+  // Comment dòng bắt đầu bằng // và kết thúc bằng end-of-line
+  while ((currentChar != EOF) && (currentChar != '\n')) {
+    readChar();
+  }
+  // Không cần đọc thêm vì '\n' sẽ được xử lý như CHAR_SPACE
+}
+
 Token* readIdentKeyword(void) {
   // Đọc identifier hoặc keyword
   Token *token = makeToken(TK_IDENT, lineNo, colNo);
@@ -172,21 +180,28 @@ Token* getToken(void) {
     return token;
     
   case CHAR_SLASH:
-    token = makeToken(SB_SLASH, lineNo, colNo);
-    readChar();
-    return token;
-    
-  case CHAR_LT:
     ln = lineNo;
     cn = colNo;
     readChar();
-    if (currentChar == '=') {
-      token = makeToken(SB_LE, ln, cn);
-      readChar();
+    if (currentChar == '/') {  // THÊM: Kiểm tra //
+      skipLineComment();
+      return getToken();
     } else {
-      token = makeToken(SB_LT, ln, cn);
+      token = makeToken(SB_SLASH, ln, cn);
     }
     return token;
+    
+  // case CHAR_LT:
+  //   ln = lineNo;
+  //   cn = colNo;
+  //   readChar();
+  //   if (currentChar == '=') {
+  //     token = makeToken(SB_LE, ln, cn);
+  //     readChar();
+  //   } else {
+  //     token = makeToken(SB_LT, ln, cn);
+  //   }
+  //   return token;
     
   case CHAR_GT:
     ln = lineNo;
