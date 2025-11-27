@@ -1,0 +1,6 @@
+program Test;
+var a: array [10] of integer;
+begin
+  a[5] := 10;
+  a(. 3 .) := 20;
+end.

@@ -256,6 +256,16 @@ case CHAR_MINUS:
     token = makeToken(SB_RPAR, lineNo, colNo);
     readChar();
     return token;
+
+  case CHAR_LSEL:
+    token = makeToken(SB_LSEL, lineNo, colNo);
+    readChar();
+    return token;
+    
+  case CHAR_RSEL:
+    token = makeToken(SB_RSEL, lineNo, colNo);
+    readChar();
+    return token;
   default:
     token = makeToken(TK_NONE, lineNo, colNo);
     error(ERR_INVALIDSYMBOL, lineNo, colNo);
@@ -298,6 +308,8 @@ void printToken(Token *token) {
   case KW_DO: printf("KW_DO\n"); break;
   case KW_FOR: printf("KW_FOR\n"); break;
   case KW_TO: printf("KW_TO\n"); break;
+  case KW_RETURN: printf("KW_RETURN\n"); break;
+  case KW_SWITCH: printf("KW_SWITCH\n"); break;
 
   case SB_SEMICOLON: printf("SB_SEMICOLON\n"); break;
   case SB_COLON: printf("SB_COLON\n"); break;
