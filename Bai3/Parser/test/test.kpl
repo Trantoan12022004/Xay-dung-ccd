@@ -1,0 +1,12 @@
+PROGRAM TestForOld;
+
+VAR i, total : INTEGER;
+
+BEGIN
+  total := 0;
+  
+  FOR i := 1 TO 5 DO
+    total := total + i;
+    
+  CALL WriteI(total)
+END.
